@@ -1,0 +1,37 @@
+services:
+  app:
+    build: .
+    container_name: prueba_tecnica_app
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - ./src:/app/src
+      - ./target:/app/target
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true
+    #  - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
+  db:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle-db
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  oracle-data:
+    driver: local
