@@ -14,7 +14,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     @Transactional
-    public void transferSalary(Integer employeeIDOne, Integer employeeIDTwo, Double value) {
+    public void transferSalary(
+        Integer employeeIDOne,
+        Integer employeeIDTwo,
+        Double value
+    ) {
         entityManager
             .createNativeQuery(
                 "UPDATE EMPLOYEE SET salary = salary - :value WHERE id = :employeeIDOne"

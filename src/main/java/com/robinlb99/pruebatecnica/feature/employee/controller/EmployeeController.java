@@ -1,11 +1,11 @@
 package com.robinlb99.pruebatecnica.feature.employee.controller;
 
-import java.util.List;
 import com.robinlb99.pruebatecnica.feature.employee.mapper.EmployeeMapper;
 import com.robinlb99.pruebatecnica.feature.employee.model.dto.EmployeeRequestDTO;
 import com.robinlb99.pruebatecnica.feature.employee.model.dto.EmployeeResponseDTO;
 import com.robinlb99.pruebatecnica.feature.employee.service.EmployeeServiceImpl;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,7 +70,7 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/transfer")
+    @PutMapping("/transferSalary")
     public ResponseEntity<Void> transferSalary(
         @RequestParam Integer employeeIDOne,
         @RequestParam Integer employeeIDTwo,
@@ -82,10 +82,11 @@ public class EmployeeController {
 
     @GetMapping("/aboveAverageSalary")
     public ResponseEntity<List<EmployeeResponseDTO>> getAboveAverageSalaryEmployees() {
-        List<EmployeeResponseDTO> employees = employeeService.getAboveAverageSalaryEmployees()
-            .stream()
-            .map(employeeMapper::toResponseDTO)
-            .toList();
+        List<EmployeeResponseDTO> employees = 
+        		employeeService.getAboveAverageSalaryEmployees()
+        			.stream()
+        					.map(employeeMapper::toResponseDTO)
+        					.toList();
         return ResponseEntity.status(HttpStatus.OK).body(employees);
     }
 }
