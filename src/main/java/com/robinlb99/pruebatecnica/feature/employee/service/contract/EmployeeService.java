@@ -1,15 +1,18 @@
 package com.robinlb99.pruebatecnica.feature.employee.service.contract;
 
 import com.robinlb99.pruebatecnica.feature.employee.model.dto.EmployeeRequestDTO;
-import com.robinlb99.pruebatecnica.feature.employee.model.entity.Employee;
+import com.robinlb99.pruebatecnica.feature.employee.model.dto.EmployeeResponseDTO;
 import java.util.List;
 
 public interface EmployeeService {
-    public Employee createEmployee(EmployeeRequestDTO employee);
+    public EmployeeResponseDTO createEmployee(EmployeeRequestDTO employee);
 
-    public Employee getEmployee(Integer id);
+    public EmployeeResponseDTO getEmployee(Integer id);
 
-    public Employee updateEmployee(EmployeeRequestDTO employee, Integer id);
+    public EmployeeResponseDTO updateEmployee(
+        EmployeeRequestDTO employee,
+        Integer id
+    );
 
     public void deleteEmployee(Integer id);
 
@@ -19,5 +22,5 @@ public interface EmployeeService {
         Double value
     );
 
-    public List<Employee> getAboveAverageSalaryEmployees();
+    public List<EmployeeResponseDTO> getAboveAverageSalaryEmployees();
 }

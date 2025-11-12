@@ -1,6 +1,5 @@
 package com.robinlb99.pruebatecnica.feature.employee.controller;
 
-import com.robinlb99.pruebatecnica.feature.employee.mapper.EmployeeMapper;
 import com.robinlb99.pruebatecnica.feature.employee.model.dto.EmployeeRequestDTO;
 import com.robinlb99.pruebatecnica.feature.employee.model.dto.EmployeeResponseDTO;
 import com.robinlb99.pruebatecnica.feature.employee.service.EmployeeServiceImpl;
@@ -22,23 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final EmployeeMapper employeeMapper;
     private EmployeeServiceImpl employeeService;
 
-    public EmployeeController(
-        EmployeeServiceImpl employeeService,
-        EmployeeMapper employeeMapper
-    ) {
+    public EmployeeController(EmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
-        this.employeeMapper = employeeMapper;
     }
 
     @PostMapping("create")
     public ResponseEntity<EmployeeResponseDTO> createEmployee(
         @Valid @RequestBody EmployeeRequestDTO employeeRequestDTO
     ) {
-        EmployeeResponseDTO employee = employeeMapper.toResponseDTO(
-            employeeService.createEmployee(employeeRequestDTO)
+        EmployeeResponseDTO employee = employeeService.createEmployee(
+            employeeRequestDTO
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(employee);
     }
@@ -47,9 +41,7 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponseDTO> getEmployee(
         @PathVariable Integer id
     ) {
-        EmployeeResponseDTO employee = employeeMapper.toResponseDTO(
-            employeeService.getEmployee(id)
-        );
+        EmployeeResponseDTO employee = employeeService.getEmployee(id);
         return ResponseEntity.status(HttpStatus.OK).body(employee);
     }
 
@@ -58,8 +50,9 @@ public class EmployeeController {
         @Valid @RequestBody EmployeeRequestDTO employeeRequestDTO,
         @PathVariable Integer id
     ) {
-        EmployeeResponseDTO employee = employeeMapper.toResponseDTO(
-            employeeService.updateEmployee(employeeRequestDTO, id)
+        EmployeeResponseDTO employee = employeeService.updateEmployee(
+            employeeRequestDTO,
+            id
         );
         return ResponseEntity.status(HttpStatus.OK).body(employee);
     }
@@ -82,11 +75,8 @@ public class EmployeeController {
 
     @GetMapping("/aboveAverageSalary")
     public ResponseEntity<List<EmployeeResponseDTO>> getAboveAverageSalaryEmployees() {
-        List<EmployeeResponseDTO> employees = 
-        		employeeService.getAboveAverageSalaryEmployees()
-        			.stream()
-        					.map(employeeMapper::toResponseDTO)
-        					.toList();
+        List<EmployeeResponseDTO> employees =
+            employeeService.getAboveAverageSalaryEmployees();
         return ResponseEntity.status(HttpStatus.OK).body(employees);
     }
 }
