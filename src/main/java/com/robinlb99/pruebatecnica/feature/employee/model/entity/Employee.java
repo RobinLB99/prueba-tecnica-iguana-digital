@@ -6,12 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 public class Employee implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -77,18 +80,14 @@ public class Employee implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) && Objects.equals(name, employee.name);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Employee other = (Employee) obj;
-        return (
-            Objects.equals(id, other.id) && Objects.equals(name, other.name)
-        );
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
