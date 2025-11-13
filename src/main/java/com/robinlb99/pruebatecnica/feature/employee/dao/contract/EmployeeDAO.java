@@ -1,4 +1,4 @@
-package com.robinlb99.pruebatecnica.feature.employee.repository.dao;
+package com.robinlb99.pruebatecnica.feature.employee.dao.contract;
 
 public interface EmployeeDAO {
     public void transferSalary(

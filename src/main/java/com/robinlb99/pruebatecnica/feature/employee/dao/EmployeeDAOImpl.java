@@ -1,10 +1,11 @@
-package com.robinlb99.pruebatecnica.feature.employee.repository;
+package com.robinlb99.pruebatecnica.feature.employee.dao;
 
-import com.robinlb99.pruebatecnica.feature.employee.repository.dao.EmployeeDAO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+
+import com.robinlb99.pruebatecnica.feature.employee.dao.contract.EmployeeDAO;
 
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
