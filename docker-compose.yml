@@ -15,7 +15,7 @@ services:
         condition: service_healthy
     environment:
       - SPRING_DEVTOOLS_RESTART_ENABLED=true
-    #  - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+      - MAVEN_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
 
   db:
     image: gvenzl/oracle-xe:latest
